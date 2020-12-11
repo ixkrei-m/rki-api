@@ -1,0 +1,36 @@
+{
+  "name": "rki-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "fastify start -p 5000 -l info src/app.js",
+    "dev": "fastify start -p 5000 -w -l info -P src/app.js",
+    "db:flush": "sequelize db:migrate:undo:all --config src/config --migrations-path src/migrations",
+    "db:migrate": "sequelize db:migrate --config src/config --migrations-path src/migrations",
+    "db:seed": "sequelize db:seed:all --config src/config --seeders-path src/seeders",
+    "db:reset": "yarn db:flush && yarn db:migrate && yarn db:seed"
+  },
+  "keywords": [],
+  "author": "Maximilian Haindl",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "fastify": "^3.0.0",
+    "fastify-autoload": "^3.0.2",
+    "fastify-cli": "^2.5.1",
+    "fastify-helmet": "^5.0.3",
+    "fastify-plugin": "^3.0.0",
+    "mysql2": "^2.2.5",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.17",
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0",
+    "tap": "^14.0.0"
+  }
+}
