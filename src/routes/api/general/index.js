@@ -5,8 +5,6 @@ module.exports = async function (fastify, opts) {
     url: "/",
     method: "GET",
     handler: async (request, reply) => {
-      console.log("----------------------");
-      console.log(fastify);
       const { General } = fastify.db();
 
       const generals = await General.findAll();

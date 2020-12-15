@@ -33,13 +33,13 @@ module.exports = async function (fastify, opts) {
   };
 
   const fetchRkiApi = async () =>
-    axios.get("https://rki-covid-api.now.sh/api/general").then(
+    axios.get("https://rki.marlon-lueckert.de/api/general").then(
       ({ data }) => data,
       (error) => error
     );
 
   cron.schedule("0 10 * * *", async () => {
-    fastify.logger("Running Cron-Job...");
+    console.log("Running Cron-Job...");
 
     try {
       await fetchRkiApi().then(async (data) => {
