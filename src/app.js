@@ -3,6 +3,7 @@
 const path = require("path");
 const AutoLoad = require("fastify-autoload");
 const helmet = require("fastify-helmet");
+const cors = require("fastify-cors");
 const cron = require("node-cron");
 const nodemailer = require("nodemailer");
 const axios = require("axios").default;
@@ -10,7 +11,9 @@ const db = require("./models");
 const { SMTP_HOST, SMTP_PORT, EMAIL_FROM, EMAIL_ADDRESS, EMAIL_PASSWORD } = require("./config");
 
 module.exports = async function (fastify, opts) {
-  // Place here your custom code!
+  fastify.register(cors, {
+    origin: true,
+  });
 
   // Fetching RKI-API every morning at 10AM
   const transporter = nodemailer.createTransport({
