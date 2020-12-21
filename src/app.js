@@ -73,6 +73,12 @@ module.exports = async function (fastify, opts) {
     options: Object.assign({}, opts),
   });
 
+  // rate-limiting the api to max 5 requests per minute
+  fastify.register(require("fastify-rate-limit"), {
+    max: 5,
+    timeWindow: "1 minute",
+  });
+
   // https://github.com/fastify/fastify-helmet
   fastify.register(
     helmet,
