@@ -1,6 +1,6 @@
 # RKI-API
 
-This API provides you JSON Data indirecly from Robert Koch-Institute through the API from [Marlon Lückert](https://github.com/marlon360/rki-covid-api)
+This API provides JSON Data indirecly from Robert Koch-Institute through the API from [Marlon Lückert](https://github.com/marlon360/rki-covid-api)
 
 ## Endpoint
 
