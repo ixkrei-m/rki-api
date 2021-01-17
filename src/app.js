@@ -33,7 +33,7 @@ module.exports = async function (fastify, opts) {
   };
 
   const fetchRkiApi = async () =>
-    axios.get("https://rki.marlon-lueckert.de/api/general").then(
+    axios.get("https://api.corona-zahlen.org/germany").then(
       ({ data }) => data,
       (error) => error
     );
@@ -44,7 +44,7 @@ module.exports = async function (fastify, opts) {
     try {
       await fetchRkiApi().then(async (data) => {
         await db.General.create({
-          last_update: data.last_update,
+          last_update: data.meta.lastUpdate,
           recovered: data.recovered,
           cases: data.cases,
           deaths: data.deaths,
