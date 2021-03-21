@@ -38,18 +38,26 @@ module.exports = async function (fastify, opts) {
       (error) => error
     );
 
-  cron.schedule("0 10 * * *", async () => {
+  cron.schedule("30 /8 * * *", async () => {
     console.log("Running Cron-Job...");
 
     try {
-      await fetchRkiApi().then(async (data) => {
-        await db.General.create({
-          last_update: data.meta.lastUpdate,
-          recovered: data.recovered,
-          cases: data.cases,
-          deaths: data.deaths,
-        });
+      const fetchedData = await fetchRkiApi();
+
+      const lastRow = await db.General.findOne({
+        order: [["id", "DESC"]],
       });
+
+      const persistedCases = lastRow.getDataValue("cases");
+
+      if (fetchedData.cases !== persistedCases) {
+        await db.General.create({
+          last_update: fetchedData.meta.lastUpdate,
+          recovered: fetchedData.recovered,
+          cases: fetchedData.cases,
+          deaths: fetchedData.deaths,
+        });
+      }
     } catch (error) {
       message.subject = "RKI-API Error";
       message.text = `${error}`;
